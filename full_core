@@ -1,10 +1,10 @@
 % ----------------------- PWR Reactor Core --------------------------------
 
-set title "APR1400 2D FULL CORE MODEL w/ Cr and Nb liner case3"
-include "full_core.mvol"
+set title "2D FULL CORE MODEL w/ Cr and Nb liner case3"
+%include "full_core.mvol"
 
 
- % Min Enrichment =1.71% --[A0]
+ % Min Enrichment =% --[A0]
 pin  1  		% pin <universe>
 UO2min  0.40960	        % pellet radius = 0.8192/2
 gab     0.41785	        % cladding inner radius = 0.8357/2
@@ -13,7 +13,7 @@ liner   0.474           %  Nb Liner , thickness=2.20um
 coating 0.47500         % Cr coating,thickness=10um 
 water			% coolant 
 
-% Enrichment =3.14% --[B0, B1, B2, C0, C1, C2, C3]
+% Enrichment =% --[B0, B1, B2, C0, C1, C2, C3]
 pin  3 	% pin <universe>
 UO2  0.40960	      % pellet radius = 0.8192/2
 gab    0.41785	      % cladding inner radius = 0.8357/2
@@ -22,7 +22,7 @@ liner   0.474         % Nb Liner , thickness=2.20um
 coating 0.47500       % Cr coating,thickness=10um 
 water		      % coolant 
 
-% Enrichment =2.64% --[B1, B2]
+% Enrichment =% --[B1, B2]
 pin  4   	      % pin <universe>
 UO22  0.40960	      % pellet radius = 0.8192/2
 gab    0.41785	      % cladding inner radius = 0.8357/2
@@ -31,7 +31,7 @@ liner   0.474         % Nb Liner , thickness=2.20um
 coating 0.47500       % Cr coating,thickness=10um 
 water		      % coolant 
 
-% Max Enrichment =3.64% --[C0, C1, C2, C3]
+% Max Enrichment =% --[C0, C1, C2, C3]
 pin  5		      % pin <universe>
 UOmax 0.40960	      % pellet radius = 0.8192/2
 gab    0.41785	      % cladding inner radius = 0.8357/2
@@ -352,247 +352,6 @@ surf 601 cyl  0.0  0.0  254.96             % Thickness are taken between 22-25cm
 
 cell 6000  0  steel     600 -601
 cell 6050  0  outside   601 
-
-
-
-%%% ------ Material -------%%%
-
-% --- UO2 fuel, initial enrichment 1.71     
-
-mat UO2min   -10.23669       burn 1 rgb 220 170 220             %negative means mass density%
-92235.09c -0.0149		% Mass fraction of U-235
-92238.09c -0.8666 	        % Mass fraction of U-238
-8016.09c  -0.1185		% Mass fraction of O-16
-
-
-% --- UO2 fuel, initial enrichment 3.14     
-mat UO2      -10.23669		burn 1 rgb 225 225 200             %negative means mass density%
-92235.09c -0.0277		% Mass fraction of U-235
-92238.09c -0.8538 	       % Mass fraction of U-238
-8016.09c  -0.1185		% Mass fraction of O-16
-
-
-%-----UO2 fuel, initial enrichment 2.64%
-
-mat UO22  -10.23669		burn 1 rgb 225 225 200         %negative means mass density%
-92235.09c -0.0228		% Mass fraction of U-235
-92238.09c -0.8587		% Mass fraction of U-238
-8016.09c  -0.1185		% Mass fraction of O-16
-
-% --- UO2 fuel, initial enrichment 3.64%     
-
-mat UOmax    -10.23669		burn 1 rgb 255 200 150          %negative means mass density%
-92235.09c -0.0321 	% Mass fraction of U-235
-92238.09c -0.8494 	% Mass fraction of U-238
-8016.09c  -0.1185	% Mass fraction of O-16
-
-
-% ---- Fuel+Gadolinia---------------%
-mat UO2Gd   -9.97086		burn 1        rgb 150 0 150       %g/cm3
-92234.09c   -0.001293758
-92235.09c   -0.161719809
-92238.09c   -7.922976906
-64152.09c   -0.001337171
-64154.09c   -0.014767152
-64155.09c   -0.100906445
-64156.09c   -0.140465053
-64157.09c   -0.108080038
-64158.09c   -0.172639615
-64160.09c   -0.153855618
- 8016.09c   -1.192818452
-
-% --- Gab in Fuel rods:
-
-mat gab       -0.0015599    % negative means mass densities g/cm3%
- 2000.06c     -0.0015599    %He
-
-
-% --- Zirlo in cladding and guide tube:
-
-mat clad     -6.57   rgb 100 100 0  % g/cm3
-40000.06c    -97.58  %Zr
-50000.06c    -1.1    %Sn
-41093.06c    -1.1    %Nb
-26000.06c    -0.1    %Fe
- 8016.06c    -0.12   %O-16
-
-% --- Stainless Steel (SS304) in Baffel and Barrel:
-
-mat steel    -8.00        % Type 304 Stainless steel density in gm/cc
- 6000.06c   -0.00080     % C     Carbon; this is for Type 304
-25055.06c   -0.02000     % Mg    Manganese
-14000.06c   -0.00750     % Si    Silicon (nat.)
-15031.06c   -0.00045     % P     Phosphorus (all P-31)
-16000.06c   -0.00030     % S     Sulfur (nat.)
-24000.06c   -0.20000     % Cr    Chromium (nat.)
-28000.06c   -0.10500     % Ni    Nickel (nat.)
- 7014.06c   -0.00100     % N     Nitrogen (nat.)
-26000.06c   -0.66495     % Fe    Iron (nat.)
-
-% Water
-
-mat water      -0.72653973672     rgb 0 200 255 moder lwtr 1001
- 1001.06c	0.66667
- 8016.06c	0.33333
-
-
-% --- Nb cladding liner with Temperature Set to 600K --- %
-mat liner  -8.57	 			% Mass density given in g/cm3
-41093.06c -1.000				% Mass fraction of Nb
-
-%% coating 10 um -----
-mat coating  -7.19
-24050.06c    -4.34      % Cr50
-24052.06c    -83.79      % Cr52
-24053.06c    -9.50      % Cr53
-24054.06c    -2.37      % Cr54
- 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                   --- Libraries ---                   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% --- Thermal Scattering Data for Light Water --- %
-therm lwtr lwe7.12t 
-
-set acelib "/home/reactorphysics/Documents/xsdata/endfb7/sss_endfb7.xsdata"		
-set declib "/home/reactorphysics/Documents/xsdata/endfb7/sss_endfb7.dec"
-set nfylib "/home/reactorphysics/Documents/xsdata/endfb7/sss_endfb7.nfy"
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%            --- Calculation Parameters ---             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% --- Neutron Population and Criticality Cycles --- %
-set pop 10000 200 50	% 500,000 neutrons, 200 iterations, 50 skip cycles
-set usym 0 4 0.0 0.0
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                   --- Detectors ---                   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% --- Detector energy grid (unifrom lethargy) --- %
-%ene 1 3 1000 1e-11 20
-
-% --- Flux per lethargy --- %
-%det flux de 1 dt -3
-
-% --- Differential Capture, Fission, and Production Spectra --- %
-%det capd de 1 dt -2 dr -2 void
-%det fissd de 1 dt -2 dr -6 void
-%det prodd de 1 dt -2 dr -7 void
-
-% --- Integral Capture, Fission, and Production Spectra --- %
-%det capi de 1 dt -1 dr -2 void
-%det fissi de 1 dt -1 dr -6 void
-%det prodi de 1 dt -1 dr -7 void
-
-% --- Detector energy grid (uniform energy) --- %
-%ene 2 2 1000 1e-11 20
-
-% --- Pin Power Distribution --- %
-%det pinpower  dx -176.6096 176.6096 35  dy -10.3888 10.3888 1   %dz 0.0      4.1148    1 
-det pinpower  dx 0.0 176.6096 17 dy 0.0 20.7776 1 %dy -176.6096 176.6096 17 %dy -10.3888 10.3888 1   %dz 0.0      4.1148    1 
-
-set rfw 1
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                 --- Plot and Mesh ---                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% --- Plot --- %
-%plot 3 1000 1000
-
-% --- Mesh --- %
-%mesh 3 1000 1000
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                     --- Power ---                     %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%% -----------------Irradiation History
-
-set power 10454068		% W/cm, thermal power 3982 MW and active height 381 cm
-
-dep butot			% Unit MWD/KgHM. Maximum burnup of ApR1400 is 60000 MWD/MTU
-0.1
-0.25
-0.5
-0.75
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-17.5
-18
-
-set printm 1
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%               --- Nuclide Inventory ---               %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-set inventory 
-
-% Actinides: 
-
-922340
-922350
-922360
-922370
-922380
-922390
-932370
-932380
-932390
-932400
-942380
-942390
-942400
-942410
-942420
-942430
-952410
-% Am242
-%956420
-% Am242m
-952420
-952430
-952440
-962420
-962430
-962440
-962450
-
-% Fission products:
-
-360850
-380900
-471101
-551370
-531350
-541350
-611490
-621490
-621510
-
-
 
 
 
