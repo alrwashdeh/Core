@@ -12,7 +12,7 @@ end;
 VERSION                   (idx, [1: 14])  = 'Serpent 2.1.31' ;
 COMPILE_DATE              (idx, [1: 20])  = 'Nov 20 2021 23:11:14' ;
 DEBUG                     (idx, 1)        = 0 ;
-TITLE                     (idx, [1: 11])  = 'APR 1400 C0' ;
+TITLE                     (idx, [1: 11])  = ' C0' ;
 CONFIDENTIAL_DATA         (idx, 1)        = 0 ;
 INPUT_FILE_NAME           (idx, [1:  2])  = 'c0' ;
 WORKING_DIRECTORY         (idx, [1: 61])  = '/home/reactorphysics/Documents/EQ.asemblies/fuelassemblies/c0' ;
