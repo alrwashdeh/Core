@@ -1,0 +1,252 @@
+% all references used in this code for pages of the serpent manual published on 18 June 2015
+% this code was created in April 2018
+% --- Defining Normal enrichment (4.5) Fuel Rod cofig.
+
+set title "PWR"
+
+pin 1				% pin <universe>
+fuel1 0.40950			% <mat 1> <r1> = 0.819/2
+he    0.41800			% <mat 2> <r2> = 0.836/2
+clad  0.47500			% <mat 3> <r3> = 0.950/2
+water				% water is not defined yet
+
+% --- Defining low enrichment (4.0) Fuel Rod cofig.
+
+%pin 2				% pin <universe>
+%fuel2 0.40950			% <mat 1> <r1> = 0.819/2
+%he    0.41800			% <mat 2> <r2> = 0.836/2
+%clad  0.47500		% <mat 3> <r3> = 0.950/2
+%water				% water is not defined yet
+
+% --- Defining Gd2O3-UO2.
+
+%pin 4				% pin <universe>
+%Gd    0.40950			% <mat 1> <r1> = 0.819/2
+%he    0.41800			% <mat 2> <r2> = 0.836/2
+%clad  0.47500			% <mat 3> <r3> = 0.950/2
+%water				% water is not defined yet
+
+% --- Defining coolent in empty lattice positions.
+
+pin 3				% pin <universe>
+water				% water is not defined yet
+
+
+% --- Lattice (type = 1 [square lattice], pin pitch = 1.2852):
+% lat <u0> <type> <x0> <y0> <nx> <ny> <p> page 30 in manual
+
+lat 100 1 0 0 16 16 1.2852
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 3 3 1 1 1 1 1 1 3 3 1 1 1
+1 1 1 3 3 1 1 1 1 1 1 3 3 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 3 3 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 3 3 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 3 3 1 1 1 1 1 1 3 3 1 1 1
+1 1 1 3 3 1 1 1 1 1 1 3 3 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+% --- Geometry:
+
+% Water hole geometry
+
+% Center hole
+surf 1 cyl 0 0 1.145	% inner diameter [x0, y0, r, z1, z2]
+surf 2 cyl 0 0 1.245	% outer diameter [x0, y0, r, z1, z2]
+
+% Upper left hole
+surf 3 cyl -5.1408 5.1408 1.145		% inner diameter [x0, y0, r, z1, z2]
+surf 4 cyl -5.1408 5.1408 1.245		% outer diameter [x0, y0, r, z1, z2]
+
+% lower left hole
+surf 5 cyl -5.1408 -5.1408 1.145		% inner diameter [x0, y0, r, z1, z2]
+surf 6 cyl -5.1408 -5.1408 1.245		% outer diameter [x0, y0, r, z1, z2]
+
+% upper right hole
+surf 7 cyl 5.1408 5.1408 1.145		% inner diameter [x0, y0, r, z1, z2]
+surf 8 cyl 5.1408 5.1408 1.245		% outer diameter [x0, y0, r, z1, z2]
+
+% lower right hole
+surf  9 cyl 5.1408 -5.1408 1.145	% inner diameter [x0, y0, r, z1, z2]
+surf 10 cyl 5.1408 -5.1408 1.245	% outer diameter [x0, y0, r, z1, z2]
+
+
+% Assembly geometry
+surf 11 sqc 0 0 10.2816			% 16/2 * pitch [x0, y0, r, r0]
+
+
+% -- Defining cells with defined geometry 
+
+% [cell <name> <u0> <mat> <surf 1> <surf 2> .. ]
+
+% fill the lattice inside the defined assembly 11
+cell 1 0 fill 100 -11 2 4 6 8 10
+
+% defining water inside holes & the clad
+cell 2 0 water -1	% water passing through holes [center]
+cell 3 0 clad 1 -2	% cladd thickness between 2 surfaces defined 
+
+cell 4 0 water -3	% water passing through holes [upper left]
+cell 5 0 clad 3 -4	% cladd thickness between 2 surfaces defined
+
+cell 6 0 water -5	% water passing through holes [lower left]
+cell 7 0 clad 5 -6	% cladd thickness between 2 surfaces defined
+
+cell 8 0 water -7	% water passing through holes [upper right]
+cell 9 0 clad 7 -8	% cladd thickness between 2 surfaces defined
+
+cell 10 0 water -9	% water passing through holes [lower right]
+cell 11 0 clad 9 -10	% cladd thickness between 2 surfaces defined
+
+% Surrounding the fuel assembly
+cell 20 0 outside 11
+
+
+% ---- Defining materials [mat <name> <dens> [<options>] page 48]
+
+% - Boronized light water with thremal scattering data:
+mat water -0.727265539 moder lwtr 1001
+8016.06c -0.887198			% defining O x 1
+1001.06c -0.111803			% defining H x 2
+%5010.06c -0.000184
+%5011.06c -0.000815
+
+% mat boron  1.0
+% 5010.06c -1.1890E-4
+% 5011.06c -5.3110E-4
+
+% set boron -0.001 water	% sets the 1000ppm boron in water (-ve for concentration. Page 69)
+
+% - Fuel1 data (Normal enrichment 4.5):
+mat fuel1 -10.44	burn 1	% g/cm3	
+92235.09c -0.0397	% U235 (measured with equations)
+92238.09c -0.8418	% U238 (measured with equations)
+8016.09c  -0.1185	% O-16 (measured with equations)
+
+% - Fuel2 data (Low enrichment 4.0):
+mat fuel2 -10.44	burn 1	% g/cm3	
+92235.09c -0.0353	% U235 (measured with equations)
+92238.09c -0.8462	% U238 (measured with equations)
+8016.09c  -0.1185	% O-16 (measured with equations)
+
+% - Zirlo in cladding and guide tube:
+mat clad     -6.57	% g/cm3
+40000.06c    -97.58	% Zr
+50000.06c    -1.1	% Sn
+41093.06c    -1.1	% Nb not found 41000 %
+26000.06c    -0.1	% Fe
+8016.06c     -0.12   	% O-16
+
+
+
+% ------------------- Gd (Gd2O3-UO2) (copied from manual):
+%mat Gd -10.054		burn 10
+%92234.09c -0.000129754
+%92235.09c -0.016219244
+%92238.09c -0.794613193
+%64152.09c -0.000134107
+%64154.09c -0.001481031
+%64155.09c -0.010120135
+%64156.09c -0.014087556
+%64157.09c -0.010839590
+%64158.09c -0.017314416
+%64160.09c -0.015430526
+%8016.09c  -0.119630448
+
+
+
+% - Helium gap between fuel and clad
+mat he   -0.0015599	    % mass density of helium
+2000.06c -1	         	% this is supposed to be He
+
+therm lwtr lwe7.12t
+
+set bc 2		% -- Reflective boundary condition (2) Page 60
+
+% --- xs data library
+
+set acelib "/home/reactorphysics/Documents/xsdata/endfb7/sss_endfb7.xsdata"		% Defining Library
+set declib "/home/reactorphysics/Documents/xsdata/endfb7/sss_endfb7.dec"
+set nfylib "/home/reactorphysics/Documents/xsdata/endfb7/sss_endfb7.nfy"
+% --- calculation control:
+set pop 10000 200 50 1		% 10000 neutrons, 200 iterations, 50 skip cycles
+
+set gcu  0
+set sym  8
+set nfg  2  0.625E-6
+set adf 0 11 0
+set ppw 0 100
+set nbuf 7
+set opti 4
+%ene 1 3 100 1E-9 12.0 
+%det 1 de 1 dt -3
+%det 1 dm fuel1 de 1 dt -3
+
+
+
+% --- Detector to obtain total neutron flux in the fuel --- %
+% --- Detector energy grid (unifrom lethargy):
+ene 1 3 500 1e-11 20
+
+% --- Detector energy grid (uniform energy):
+ene 2 2 500 1e-11 20
+
+% --- Flux per lethargy:
+det 1 de 1 
+
+% --- Pin power distribution:
+det 2 dr -8 void dx -10.2816 10.2816 16 dy -10.2816 10.2816 16
+
+
+% --- Geometry and mesh plots:
+%plot 3 500 500   
+%plot 2 500 500  0.6 -12 12 
+%plot 1 500 500  0.6 -12 12 
+%mesh 3 500 500
+% -----------------------------------------------------------------------------
+% --- Options for burnup calculation:
+
+set bumode  2  % CRAM method 
+set pcc     1  % Predictor-corrector calculation on
+set xscalc  2  % Cross sections from spectrum
+set printm  0  % No material compositions
+
+% --- Depletion steps:
+
+% Power density 38.44 kW/kgU
+% Depletion steps given in units of total burnup
+
+set powdens 38.44E-3  
+
+dep butot
+
+0.1
+0.5
+1
+5
+10
+15
+20
+25
+30
+35
+40
+45
+50
+55
+60
+
+set inventory
+all
+
+
+
+%plot 3 1000 1000		% Plotting orientation 3, resolution 500x500
+%mesh 3 1200 1200		% Mesh orientation 3, resolution 500x500
