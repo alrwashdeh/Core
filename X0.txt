@@ -1,5 +1,4 @@
-% all references used in this code for pages of the serpent manual published on 18 June 2015
-% this code was created in April 2018
+% a
 % --- Defining Normal enrichment (4.5) Fuel Rod cofig.
 
 set title "PWR"
